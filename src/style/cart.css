@@ -1,0 +1,111 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --width-item-card: 80%;
+  --width-container-cart-itens: 80%;
+  --width-title-item: 30%;
+  --width-item-img: 28%;
+  --width-extra: 20%;
+  --width-item-quant: 25px;
+  --width-info-item: 60%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: brown;
+}
+
+.container-cart-itens {
+  position: relative;
+  width: var(--width-container-cart-itens);
+  height: var(--width-container-cart-itens);
+  overflow-y: auto;
+  background-color: white;
+}
+
+.title-item {
+  width: var(--width-title-item);
+}
+
+.item-card {
+  background-color: aqua;
+  width: var(--width-item-card);
+}
+
+.item-img {
+  width: var(--width-item-img);
+  margin-right: 10px;
+}
+
+.img {
+  width: 100%;
+  padding: 20px;
+}
+
+.item-card, .quant-item, .extra {
+  display: flex;
+  align-items: center;
+}
+
+.extra {
+  width: var(--width-extra);
+  justify-content: space-between;
+}
+
+.total {
+  position: absolute;
+  width: calc(100% - var(--width-item-card));
+  height: 100%;
+  right: 0;
+  top: 0;
+}
+
+.quant-item {
+  gap: 5px;
+}
+
+.quant, .plus, .min {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: var(--width-item-quant);
+  height: 40px;
+}
+
+.quant {
+  font-size: 1.5em;
+}
+
+.plus, .min {
+  font-size: 2em;
+  border: none;
+  cursor: pointer;
+}
+
+.info-item {
+  display: flex;
+  width: var(--width-info-item);
+  align-items: center;
+  justify-content: space-between;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none;
+  
+}
+input[type=number] { 
+  text-align: center;
+  -moz-appearance: textfield;
+  appearance: textfield;
+
+}

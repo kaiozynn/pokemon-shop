@@ -1,10 +1,21 @@
+import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import Home from './routes/Home.jsx'
+import Carrinho from './routes/Carrinho.jsx'
 import './index.css'
 
+const routers = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home/>
+  },
+  {
+    path: '/carrinho',
+    element: <Carrinho />
+  }
+])
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <RouterProvider router={routers}/>
 )
