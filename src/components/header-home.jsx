@@ -8,7 +8,7 @@ function Header(props) {
     const contador = document.querySelector('.count-item')
 
     if(props.count !== 0) {
-      uador.classList.remove('displayNone')
+      contador.classList.remove('displayNone')
       contador.innerHTML = props.count
     }
   })
