@@ -1,9 +1,9 @@
-import Itens from "../components/itens-shop";
+import Shop from "../components/shop";
 
 export default function Home() {
   return (
     <>
-      <Itens/>
+      <Shop/>
     </>
   )
 }
