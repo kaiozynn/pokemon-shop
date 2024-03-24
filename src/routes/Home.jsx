@@ -1,9 +1,10 @@
+import Header from "../components/header-home";
+import Itens from "../components/itens-shop";
+
 export default function Home() {
   return (
     <>
-      <div>
-        <a href="/carrinho">Caminho do carrinho de compras</a>
-      </div>
+      <Itens/>
     </>
   )
 }
