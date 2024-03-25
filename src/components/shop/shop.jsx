@@ -2,10 +2,19 @@ import { useState } from 'react'
 import '../../style/shop/style.css'
 import Header from './header'
 
-export default function Itens() {
-  const [count, setCount] = useState(0)
-  const [img, setImg] = useState([])
+function Item(count) {
+  this.count = count
+}
+Item.prototype.addItem = function() {
+  const contador = document.querySelector('.count-item')
 
+  if(this.count !== 0) {
+    contador.classList.remove('displayNone');
+    return contador.innerHTML = this.count
+  }
+}
+
+export default function Itens() {
   const itens = [
     'https://i.postimg.cc/qq1d8Gvb/arcanine-h.png',
     'https://i.postimg.cc/dQ6vPJj2/arcanine-s.png',
@@ -35,15 +44,21 @@ export default function Itens() {
     'https://i.postimg.cc/Prv6b4JC/volcarona-p.png'
   ]
 
+  let count = 0;
+  const img = [];
+
   const handleclick = (ev) => {
-    setCount(count+1)
-    const newImg = ev.target.parentNode.querySelector('img').src
-    setImg([...img, newImg])
+    count+=1
+    const nextImg = ev.target.parentNode.querySelector('img').src
+    const item = new Item(count)
+    item.addItem()
+    img.push(nextImg)
   }
+
 
   return (
     <>
-    <Header count={count} imgs={img}/>
+    <Header imgs={img}/>
     <main>
       {itens.map((element, index) => {
         return (
