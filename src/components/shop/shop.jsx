@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import '../style/shop/style.css'
-import Header from './header-shop'
+import '../../style/shop/style.css'
+import Header from './header'
 
 export default function Itens() {
   const [count, setCount] = useState(0)
