@@ -1,21 +1,39 @@
 import propTypes from "prop-types"
 import '../style/shop/style.css'
-import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import Carrinho from "../routes/Carrinho.jsx"
+
+function Item({ count, imgs }) {
+  this.count = count
+  this.imgs = imgs
+}
+Item.prototype.addItem = function() {
+  const contador = document.querySelector('.count-item')
+
+  if(this.count !== 0) {
+    contador.classList.remove('displayNone');
+    contador.innerHTML = this.count
+  }
+}
 
 function Header(props) {
+  const history = useNavigate();
 
   useEffect(() => {
-    const contador = document.querySelector('.count-item')
-
-    if(props.count !== 0) {
-      contador.classList.remove('displayNone')
-      contador.innerHTML = props.count
-    }
+    const item = new Item(props)
+    item.addItem()
   })
+
+  const handleClickCart = () => {
+    history("/carrinho", {
+      state: {imgs: props.imgs}
+    });
+  }
 
   return (
     <header id="top">
-      <a href="/carrinho" className='cart'>
+      <a className='cart' onClick={handleClickCart}>
         <i className="material-symbols-outlined carrinho">shopping_cart</i>
         <i className="displayNone count-item">{props.count}</i>
       </a>

@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import '../style/shop/style.css'
-import Header from './header-home'
+import Header from './header-shop'
 
 export default function Itens() {
   const [count, setCount] = useState(0)
+  const [img, setImg] = useState([])
 
   const itens = [
     'https://i.postimg.cc/qq1d8Gvb/arcanine-h.png',
@@ -34,13 +35,15 @@ export default function Itens() {
     'https://i.postimg.cc/Prv6b4JC/volcarona-p.png'
   ]
 
-  const handleclick = () => {
+  const handleclick = (ev) => {
     setCount(count+1)
+    const newImg = ev.target.parentNode.querySelector('img').src
+    setImg([...img, newImg])
   }
 
   return (
     <>
-    <Header count={count} />
+    <Header count={count} imgs={img}/>
     <main>
       {itens.map((element, index) => {
         return (
