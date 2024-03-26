@@ -1,10 +1,9 @@
 import propTypes from "prop-types"
-import '../../style/shop/style.css'
 import { LinkCart, Navbar, Title} from './shop-components.jsx'
 
 function Header({imgs}) {
   return (
-    <header id="top">
+    <header id="shopTop">
       <LinkCart imgs={imgs}/>
       <Title />
       <Navbar />

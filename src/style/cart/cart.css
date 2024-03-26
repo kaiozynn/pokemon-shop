@@ -1,3 +1,8 @@
+.cartMain {
+  background-color: red;
+  background-image: none;
+}
+
 :root {
   --width-item-card: 80%;
   --width-container-cart-itens: 80%;

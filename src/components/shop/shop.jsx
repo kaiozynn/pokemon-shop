@@ -1,15 +1,14 @@
 import { useState } from 'react'
-import '../../style/shop/style.css'
 import Header from './header'
 
 function Item(count) {
   this.count = count
 }
 Item.prototype.addItem = function() {
-  const contador = document.querySelector('.count-item')
+  const contador = document.querySelector('.shopCount-item')
 
   if(this.count !== 0) {
-    contador.classList.remove('displayNone');
+    contador.classList.remove('shopDisplayNone');
     return contador.innerHTML = this.count
   }
 }
@@ -57,22 +56,22 @@ export default function Itens() {
 
 
   return (
-    <>
+    <div className='shopBody'>
     <Header imgs={img}/>
     <main>
       {itens.map((element, index) => {
         return (
-            <div className="container" key={index+1}>
-              <div className="img">
+            <div className="shopContainer" key={index+1}>
+              <div className="shopImg">
                 <img src={element} />
               </div>
               <span>Valor 200 reais</span>
-              <a href="#" className='compra'>Comprar</a>
+              <a href="#" className='shopCompra'>Comprar</a>
               <button className="material-symbols-outlined" onClick={handleclick}>add_shopping_cart</button>
             </div>
         )
       })}
     </main>
-  </>
+  </div>
   )
 }

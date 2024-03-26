@@ -33,9 +33,9 @@ export function LinkCart({count, imgs}) {
 
   return (
     <>
-      <a className='cart' onClick={handleClickCart}>
-        <i className="material-symbols-outlined carrinho">shopping_cart</i>
-        <i className="displayNone count-item">{count}</i>
+      <a className='shopCart' onClick={handleClickCart}>
+        <i className="material-symbols-outlined shopCarrinho">shopping_cart</i>
+        <i className="shopDisplayNone shopCount-item">{count}</i>
       </a>
     </>
   )
