@@ -47,7 +47,7 @@ export default function Itens() {
   const img = [];
 
   const handleclick = (ev) => {
-    count+=1
+    count++
     const nextImg = ev.target.parentNode.querySelector('img').src
     const item = new Item(count)
     item.addItem()
