@@ -27,7 +27,9 @@ export function LinkCart({count, imgs}) {
 
   const handleClickCart = () => {
     history("/carrinho", {
-      state: {imgs: imgs}
+      state: {
+        imgs: imgs
+      }
     });
   }
 

@@ -39,11 +39,17 @@ header {
   position: relative;
   font-size: 3em;
   margin: 2px;
+  cursor: pointer;
 }
 
 .shopCart {
   position: relative;
   color: black;
+}
+
+.shopButtons {
+  display: inline-flex;
+  height: 30px;
 }
 
 .shopCount-item {
@@ -152,9 +158,10 @@ main {
   cursor: pointer;
 }
 
-.shopContainer img {
+.shopImg img {
   display: block;
   margin: auto;
+  padding: 10px 0;
   width: 90%;
 }
 
@@ -173,7 +180,7 @@ main {
   align-items: center;
   text-decoration: none;
   width: 150px;
-  height: 50px;
+  height: 100%;
   font-size: 1.5em;
   font-variant: small-caps;
   color: rgb(28, 28, 28);

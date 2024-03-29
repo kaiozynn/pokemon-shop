@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Header from './header'
 
 function Item(count) {
@@ -48,10 +47,11 @@ export default function Itens() {
 
   const handleclick = (ev) => {
     count++
-    const nextImg = ev.target.parentNode.querySelector('img').src
+    const dad = ev.target.parentNode;
+    const nextImage = dad.parentNode.querySelector('img').src
     const item = new Item(count)
     item.addItem()
-    img.push(nextImg)
+    img.push(nextImage)
   }
 
 
@@ -66,8 +66,10 @@ export default function Itens() {
                 <img src={element} />
               </div>
               <span>Valor 200 reais</span>
-              <a href="#" className='shopCompra'>Comprar</a>
-              <button className="material-symbols-outlined" onClick={handleclick}>add_shopping_cart</button>
+              <div className='shopButtons'>
+                <a href="#" className='shopCompra'>Comprar</a>
+                <button className="material-symbols-outlined" onClick={handleclick}>add_shopping_cart</button>
+              </div>
             </div>
         )
       })}
