@@ -49,9 +49,11 @@ export default function Itens() {
     count++
     const dad = ev.target.parentNode;
     const nextImage = dad.parentNode.querySelector('img').src
+    const valueItem = dad.parentNode.querySelector('span').innerHTML
     const item = new Item(count)
     item.addItem()
-    img.push(nextImage)
+    img.push({nextImage, valueItem})
+    console.log(img)
   }
 
 
