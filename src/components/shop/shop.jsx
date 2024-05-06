@@ -44,22 +44,22 @@ export default function Itens() {
 
   let count = 0;
   const img = [];
+  const value = 200;
 
   const handleclick = (ev) => {
     count++
     const dad = ev.target.parentNode;
     const nextImage = dad.parentNode.querySelector('img').src
-    const valueItem = dad.parentNode.querySelector('span').innerHTML
+    const valueItem = dad.parentNode.querySelector('span').innerText
     const item = new Item(count)
     item.addItem()
     img.push({nextImage, valueItem})
-    console.log(img)
   }
 
 
   return (
     <div className='shopBody'>
-    <Header imgs={img}/>
+    <Header imgs={img} count={count}/>
     <main>
       {itens.map((element, index) => {
         return (
@@ -67,7 +67,7 @@ export default function Itens() {
               <div className="shopImg">
                 <img src={element} />
               </div>
-              <span>Valor 200 reais</span>
+              <span>{value.toLocaleString("pt-br",{style:"currency", currency: "BRL"})}</span>
               <div className='shopButtons'>
                 <a href="#" className='shopCompra'>Comprar</a>
                 <button className="material-symbols-outlined" onClick={handleclick}>add_shopping_cart</button>

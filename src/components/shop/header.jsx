@@ -1,10 +1,10 @@
 import propTypes from "prop-types"
 import { LinkCart, Navbar, Title} from './shop-components.jsx'
 
-function Header({imgs}) {
+export default function Header({imgs}) {
   return (
     <header id="shopTop">
-      <LinkCart imgs={imgs} />
+      <LinkCart imgs={imgs}/>
       <Title />
       <Navbar />
     </header>
@@ -13,5 +13,3 @@ function Header({imgs}) {
 Header.propTypes = {
   imgs: propTypes.array.isRequired
 }
-
-export default Header;

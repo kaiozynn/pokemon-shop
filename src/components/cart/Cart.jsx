@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Contador, Price } from "./cart-components";
+
 function contItem(item) {
   let cont = {} // faz a contagem dos itens armazena em um objeto colocando o nome do elemento como chave do objeto
   // e depois a quanntidade como valor
@@ -16,15 +19,22 @@ function contItem(item) {
 }
 
 export function Container({img}) {
-  const cont = contItem(img)
-  const imgs = Object.keys(cont)
+  const [valSpan, setValorSpan] = useState(1);
+  const cont = contItem(img);
+  const imgs = Object.keys(cont);
 
   return (
     <div>
       {imgs.map((element, index) => {
         return (
-          <div key={index+1}>
-            <img src={element} />
+          <div className="itemCart" key={index+1}>
+            <div>
+              <img src={element} />
+            </div>
+            <div className="item">
+              <Price value={img[index].valueItem} valSpan={valSpan}/>
+              <Contador onChange={setValorSpan}/>
+            </div>
           </div>
         )
       })}

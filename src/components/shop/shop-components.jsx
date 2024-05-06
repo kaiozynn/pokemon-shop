@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
 export function Navbar() {
@@ -22,7 +22,7 @@ export function Title() {
   )
 }
 
-export function LinkCart({count, imgs}) {
+export function LinkCart({imgs, count}) {
   const history = useNavigate();
 
   const handleClickCart = () => {
