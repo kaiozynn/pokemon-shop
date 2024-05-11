@@ -1,9 +1,55 @@
+:root {
+  --width-layout: 95%;
+  --width-layoutCart: 80%;
+}
+
+.cartBody {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aqua;
+}
+
+.layoutCart {
+  width: var(--width-layoutCart);
+  height: 95%;
+  padding: 20px;
+  overflow: auto;
+  background-color: yellow;
+}
+
+.full {
+  background-color: teal;
+  width: calc(var(--width-layout) - var(--width-layoutCart));
+  height: 95%;
+}
+
+.contador {
+  background-color: blueviolet;
+}
+
+#test {
+  width: 100px;
+  background-color: violet;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.contador button {
+  margin: 5px;
+  padding: 5px;
+}
+
 .itemCart {
   display: flex;
 }
 
 .item {
+  width: 100%;
   display:  flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 10px;
 }
