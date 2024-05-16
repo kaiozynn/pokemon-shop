@@ -43,7 +43,7 @@ header {
 }
 
 .shopCart {
-  position: relative;
+  position: absolute;
   color: black;
 }
 
@@ -54,9 +54,10 @@ header {
 
 .shopCount-item {
   position: absolute;
+  top: 0;
+  left: 60%;
   text-align: center;
   margin-top: 1px;
-  right: -5px;
   width: 30px;
   height: 20px;
   font-size: 20px;

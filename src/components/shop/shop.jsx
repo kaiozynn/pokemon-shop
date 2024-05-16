@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Header from './header'
 
 function Item(count) {
@@ -8,7 +9,8 @@ Item.prototype.addItem = function() {
 
   if(this.count !== 0) {
     contador.classList.remove('shopDisplayNone');
-    return contador.innerHTML = this.count
+    contador.classList.add('shopCount-item');
+    return contador.innerHTML = this.count;
   }
 }
 
@@ -44,16 +46,32 @@ export default function Itens() {
 
   let count = 0;
   const img = [];
-  const value = 200;
+  const value = 300;
+
+  useEffect(() => {
+    (function cont() {
+      if (JSON.parse(localStorage.getItem("cart"))) {
+        const data = JSON.parse(localStorage.getItem("cart"));
+        const cart = new Item(data.count);
+        cart.addItem();
+      }
+    })();
+  })
 
   const handleclick = (ev) => {
-    count++
+    count++;
     const dad = ev.target.parentNode;
-    const nextImage = dad.parentNode.querySelector('img').src
-    const valueItem = dad.parentNode.querySelector('span').innerText
-    const item = new Item(count)
-    item.addItem()
-    img.push({nextImage, valueItem})
+    const nextImage = dad.parentNode.querySelector('img').src;
+    const valueItem = dad.parentNode.querySelector('span').innerText;
+    const item = new Item(count);
+    item.addItem();
+    img.push({nextImage, valueItem});
+    const cartItens = {
+      count,
+      img
+    };
+    const storage = JSON.stringify(cartItens);
+    localStorage.setItem("cart", storage);
   }
 
 

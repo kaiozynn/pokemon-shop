@@ -22,15 +22,11 @@ export function Title() {
   )
 }
 
-export function LinkCart({imgs, count}) {
+export function LinkCart({count}) {
   const history = useNavigate();
 
   const handleClickCart = () => {
-    history("/carrinho", {
-      state: {
-        imgs: imgs,
-      }
-    });
+    history("/carrinho");
   }
 
   return (

@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Contador, DeleteButton, Price } from "./cart-components";
 
 function contItem(item) {
-  let cont = {} // faz a contagem dos itens armazena em um objeto colocando o nome do elemento como chave do objeto
-  // e depois a quanntidade como valor
+  let cont = {} // faz a contagem dos itens armazena em um objeto colocando o nome do elemento como chave do objeto e depois a quantidade como valor
   
   let contador = 1;
 
@@ -18,11 +17,24 @@ function contItem(item) {
   return cont
 }
 
-export function Container({img}) {
-  const [valSpan, setValorSpan] = useState(1);
+export function Container() {
+  let jsonImg = [];
+  if (JSON.parse(localStorage.getItem('cart'))) jsonImg = JSON.parse(localStorage.getItem('cart')).img;
+
+  const [img, setImg] = useState(jsonImg);
   const cont = contItem(img);
-  console.log(cont)
   const imgs = Object.keys(cont);
+
+  const removeItem = (index) => {
+    const newItens = [...img];
+    let uniqueArray = newItens.filter((obj, index, self) =>
+      index === self.findIndex((o) => (
+          o.nextImage === obj.nextImage
+      ))
+    );
+    uniqueArray.splice(index, 1);
+    setImg(uniqueArray);
+  };
 
   return (
     <>
@@ -35,15 +47,15 @@ export function Container({img}) {
               </div>
               <div className="item">
                 <Price value={img[index].valueItem}/>
-                <Contador onChange={setValorSpan}  valSpan={cont[element]}/>
-                <DeleteButton />
+                <Contador valSpan={cont[element]}/>
+                <DeleteButton index={index} item={img} onDelete={removeItem}/>
               </div>
             </div>
           )
         })}
       </div>
       <div className="full">
-        
+        <a href="/">Testando</a>
       </div>
     </>
   )
