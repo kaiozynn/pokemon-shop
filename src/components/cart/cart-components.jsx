@@ -1,20 +1,44 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export function Contador({valSpan}) {
-  const [button, setButton] = useState(valSpan);
+export function Contador({valQuant, itemCart}) {
+  const [quant, setQuant] = useState(valQuant);
+  let count = JSON.parse(localStorage.getItem("cart")).count;
+  const item = JSON.parse(localStorage.getItem('cart')).item;
 
   const handleDownValue = () => {
-    if(button !== 1) {
-      setButton(button-1)
+    if(quant !== 1) {
+      setQuant(quant-1)
+      count--;
+      item.splice(item.find((ele) => ele.image === itemCart.image), 1);
+
+      const decreaseItem = {
+        count,
+        item
+      };
+
+      localStorage.setItem("cart", JSON.stringify(decreaseItem));
     } else {
-      setButton(1)
+      setQuant(1);
     }
+  }
+
+  const handleUpValue = () => {
+    setQuant(quant+1);
+    count++;
+    item.push(itemCart);
+
+    const increaseItem = {
+      count,
+      item
+    }
+
+    localStorage.setItem("cart", JSON.stringify(increaseItem));
   }
 
   return (
     <div className="contador">
-      <button onClick={() => {setButton(button+1)}}>+</button>
-      <span id="test">{button}</span>
+      <button onClick={handleUpValue}>+</button>
+      <span id="test">{quant}</span>
       <button onClick={handleDownValue}>-</button>
     </div>
   );
@@ -30,7 +54,7 @@ export function Price({value}) {
   )
 }
 
-export function DeleteButton({index, item, onDelete}) {
+export function DeleteButton({index, itemInDelete, onDelete}) {
   const handleDelete = () => {
     onDelete(index);
   };

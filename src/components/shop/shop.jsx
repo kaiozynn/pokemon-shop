@@ -44,15 +44,17 @@ export default function Itens() {
     'https://i.postimg.cc/Prv6b4JC/volcarona-p.png'
   ]
 
-  let count = 0;
-  const img = [];
-  const value = 300;
+  const dataCart = JSON.parse(localStorage.getItem("cart"));
+
+  let count = dataCart ? dataCart.count : 0;
+  const item = dataCart ? dataCart.item : [];
+  console.log(item)
+  const valueItem = 300;
 
   useEffect(() => {
     (function cont() {
-      if (JSON.parse(localStorage.getItem("cart"))) {
-        const data = JSON.parse(localStorage.getItem("cart"));
-        const cart = new Item(data.count);
+      if (dataCart) {
+        const cart = new Item(dataCart.count);
         cart.addItem();
       }
     })();
@@ -61,14 +63,14 @@ export default function Itens() {
   const handleclick = (ev) => {
     count++;
     const dad = ev.target.parentNode;
-    const nextImage = dad.parentNode.querySelector('img').src;
-    const valueItem = dad.parentNode.querySelector('span').innerText;
-    const item = new Item(count);
-    item.addItem();
-    img.push({nextImage, valueItem});
+    const image = dad.parentNode.querySelector('img').src;
+    const value = dad.parentNode.querySelector('span').innerText;
+    const newItem = new Item(count);
+    newItem.addItem();
+    item.push({image, value});
     const cartItens = {
       count,
-      img
+      item
     };
     const storage = JSON.stringify(cartItens);
     localStorage.setItem("cart", storage);
@@ -77,7 +79,7 @@ export default function Itens() {
 
   return (
     <div className='shopBody'>
-    <Header imgs={img} count={count}/>
+    <Header itens={item} count={count}/>
     <main>
       {itens.map((element, index) => {
         return (
@@ -85,7 +87,7 @@ export default function Itens() {
               <div className="shopImg">
                 <img src={element} />
               </div>
-              <span>{value.toLocaleString("pt-br",{style:"currency", currency: "BRL"})}</span>
+              <span>{valueItem.toLocaleString("pt-br",{style:"currency", currency: "BRL"})}</span>
               <div className='shopButtons'>
                 <a href="#" className='shopCompra'>Comprar</a>
                 <button className="material-symbols-outlined" onClick={handleclick}>add_shopping_cart</button>
