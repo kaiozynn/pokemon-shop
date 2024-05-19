@@ -1,8 +1,21 @@
 import { useState } from "react";
-import { Contador, DeleteButton, Price } from "./cart-components";
+import { DeleteButton, Price } from "./cart-components";
+import { Contador } from "./Contador";
+
+function deletePrice(arrayItens) {
+  let fullPrice = 0;
+  for (let index = 0; index < arrayItens.length; index++) {
+    fullPrice += Number(limparNumeroMoeda(arrayItens[index].value));
+  };
+  return fullPrice;
+}
+
+export function limparNumeroMoeda(numeroFormatado) {
+  return numeroFormatado.replace(/[^\d,-]/g, '').replace(',', '.');
+}
 
 function contItem(itemInCount) {
-  let cont = {} // faz a contagem dos itens armazena em um objeto colocando o nome do elemento como chave do objeto e depois a quantidade como valor
+  let cont = {}; // faz a contagem dos itens armazena em um objeto colocando o nome do elemento como chave do objeto e depois a quantidade como valor
 
   itemInCount.map((element) => {
     if(cont[element.image]) {
@@ -12,7 +25,7 @@ function contItem(itemInCount) {
     }
   })
 
-  return cont
+  return cont;
 }
 
 function createUniqueArray(array) {
@@ -24,11 +37,15 @@ function createUniqueArray(array) {
 }
 
 export function Container() {
+  const priceStorage = Number(localStorage.getItem("fullPrice"))
+  .toLocaleString('pt-br', {style: 'currency', currency: "BRL"}) ?? 0;
   const jsonItens = JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')).item : [];
+
   const [item, setItem] = useState(jsonItens);
+  const [price, setPrice] = useState(priceStorage);
+
   const cont = contItem(item);
   const cartItens = Object.keys(cont);
-  
 
   const removeItem = (index) => {
     const newItens = [...item];
@@ -43,6 +60,11 @@ export function Container() {
       count: JSON.parse(localStorage.getItem('cart')).count - countDataStorage[uniqueArray[index].image],
       item: attItens
     };
+
+    const priceUpdateDelete = deletePrice(attItens);
+    setPrice(priceUpdateDelete);
+    localStorage.setItem("fullPrice", priceUpdateDelete);
+
     localStorage.setItem("cart", JSON.stringify(saveItem));
     setItem(attItens);
   };
@@ -61,7 +83,7 @@ export function Container() {
                 <Contador valQuant={cont[element]} itemCart={{
                   image: element,
                   value: item[index].value
-                }}/>
+                }} setPrice={setPrice} />
                 <DeleteButton index={index} itemInDelete={item} onDelete={removeItem}/>
               </div>
             </div>
@@ -69,7 +91,8 @@ export function Container() {
         })}
       </div>
       <div className="full">
-        <a href="/">Testando</a>
+        <a href="/">Voltar</a>
+        <div id="priceAll">{price.toLocaleString('pt-br', {style: 'currency', currency: "BRL"})}</div>
       </div>
     </>
   )

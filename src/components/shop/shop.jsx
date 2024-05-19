@@ -1,5 +1,33 @@
 import { useEffect } from 'react';
 import Header from './header'
+import { limparNumeroMoeda } from '../cart/Cart';
+
+export function AttFullPrice(ev) {
+  this.ev = ev;
+};
+AttFullPrice.prototype.initPrice = function() {
+  if(!localStorage.getItem('fullPrice')) localStorage.setItem('fullPrice', 0);
+
+};
+AttFullPrice.prototype.addPriceItem = function(price) {
+  const priceClean = Number(limparNumeroMoeda(price));
+  const getPriceStorage = Number(localStorage.getItem('fullPrice'));
+  
+  localStorage.setItem("fullPrice", JSON.stringify(priceClean+getPriceStorage));
+};
+AttFullPrice.prototype.upValue = function() {
+  const dad = this.ev.target.parentNode.parentNode;
+  const currentItem = limparNumeroMoeda(dad.querySelector('.valueTest').innerText);
+  const priceStorage = localStorage.getItem("fullPrice");
+  return Number(priceStorage) + Number(currentItem);
+};
+AttFullPrice.prototype.downValue = function() {
+  const dad = this.ev.target.parentNode.parentNode;
+  const currentItem = limparNumeroMoeda(dad.querySelector('.valueTest').innerText);
+  const priceStorage = localStorage.getItem("fullPrice");
+  return Number(priceStorage) - Number(currentItem);
+}
+
 
 function Item(count) {
   this.count = count
@@ -12,7 +40,13 @@ Item.prototype.addItem = function() {
     contador.classList.add('shopCount-item');
     return contador.innerHTML = this.count;
   }
-}
+};
+Item.prototype.createItem = function(count, item) {
+  return {
+    count,
+    item
+  }
+};
 
 export default function Itens() {
   const itens = [
@@ -44,15 +78,16 @@ export default function Itens() {
     'https://i.postimg.cc/Prv6b4JC/volcarona-p.png'
   ]
 
+  const fullPrice = new AttFullPrice();
   const dataCart = JSON.parse(localStorage.getItem("cart"));
 
   let count = dataCart ? dataCart.count : 0;
   const item = dataCart ? dataCart.item : [];
-  console.log(item)
-  const valueItem = 300;
+  const valueItem = 150;
 
   useEffect(() => {
     (function cont() {
+      fullPrice.initPrice();
       if (dataCart) {
         const cart = new Item(dataCart.count);
         cart.addItem();
@@ -66,13 +101,14 @@ export default function Itens() {
     const image = dad.parentNode.querySelector('img').src;
     const value = dad.parentNode.querySelector('span').innerText;
     const newItem = new Item(count);
+
     newItem.addItem();
     item.push({image, value});
-    const cartItens = {
-      count,
-      item
-    };
+
+    const cartItens = newItem.createItem(count, item);
     const storage = JSON.stringify(cartItens);
+
+    fullPrice.addPriceItem(value);
     localStorage.setItem("cart", storage);
   }
 
