@@ -126,8 +126,8 @@ export default function Itens() {
               <span>{valueItem.toLocaleString("pt-br",{style:"currency", currency: "BRL"})}</span>
               <div className='shopButtons'>
                 <a href="#" className='shopCompra'>Comprar</a>
-                <button className="material-symbols-outlined" onClick={handleclick}>add_shopping_cart</button>
               </div>
+              <button className="material-symbols-outlined add-cart" onClick={handleclick}>add_shopping_cart</button>
             </div>
         )
       })}

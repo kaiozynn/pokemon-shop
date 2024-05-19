@@ -15,18 +15,6 @@
   box-sizing: border-box;
 }
 
-.shopTop {
-  position: fixed;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: blue;
-  color: azure;
-  z-index: 2;
-  right: 40px;
-  bottom: 40px;
-}
-
 header {
   margin-top: 5px;
   margin: auto;
@@ -44,12 +32,19 @@ header {
 
 .shopCart {
   position: absolute;
+  top: 0;
   color: black;
 }
 
 .shopButtons {
-  display: inline-flex;
-  height: 30px;
+  display: flex;
+  width: 100%;
+}
+
+.add-cart {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 
 .shopCount-item {
@@ -138,50 +133,42 @@ main {
   padding-bottom: 20px;
 }
 
-.shopContainer {
-  position: relative;
-  width: 90%;
-  height: 45vh;
-  margin: 20px 0;
-  padding: 5px;
-  text-align: center;
-  background-color: lightgray;
-  border-radius: 20px;
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.329);
+#shopTop {
+  padding-top: 10px;
 }
 
-.shopContainer h1 {
-  text-align: center;
-  margin: 0;
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  font-variant: small-caps;
-  cursor: pointer;
+.shopContainer {
+  display: flex;
+  position: relative;
+  width: 95%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: lightgray;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  padding: 10px;
+}
+
+.shopImg {
+  margin: auto;
+  width: 90%;
+  height: 90%;
 }
 
 .shopImg img {
-  display: block;
-  margin: auto;
-  padding: 10px 0;
-  width: 90%;
-}
-
-.shopContainer span {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding-top: 20px;
-  font-size: 1.4em;
+  width: 100%;
 }
 
 .shopCompra {
+  display: flex;
   margin: auto;
   cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
   width: 150px;
   height: 100%;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
   font-size: 1.5em;
   font-variant: small-caps;
   color: rgb(28, 28, 28);
@@ -192,10 +179,6 @@ main {
 
 .shopCompra:hover {
   background-image: linear-gradient(to bottom, rgb(255, 255, 86), rgb(255, 182, 46));
-}
-
-.add-carrinho {
-  float: right;
 }
 
 footer {
@@ -237,21 +220,11 @@ footer li {
   main {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .shopContainer {
-    width: 85%;
-    height: 85%;
-  }
 }
 
 @media screen and (min-width: 998px) {
 
   main {
     grid-template-columns: repeat(3,1fr)
-  }
-
-  .shopContainer {
-    width: 85%;
-    height: 85%;
   }
 }
