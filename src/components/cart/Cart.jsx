@@ -72,6 +72,12 @@ export function Container() {
   return (
     <>
       <div className="layoutCart">
+        <a href="/" className="linkShop">
+          <i class="material-symbols-outlined">
+            arrow_back
+          </i>
+          Continuar comprando
+        </a>
         {cartItens.map((element, index) => {
           return (
             <div className="itemCart" key={index+1}>
@@ -91,7 +97,6 @@ export function Container() {
         })}
       </div>
       <div className="full">
-        <a href="/">Voltar</a>
         <div id="priceAll">{price.toLocaleString('pt-br', {style: 'currency', currency: "BRL"})}</div>
       </div>
     </>

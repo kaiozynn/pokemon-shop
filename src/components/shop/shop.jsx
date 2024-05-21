@@ -98,7 +98,7 @@ export default function Itens() {
   const handleclick = (ev) => {
     count++;
     const dad = ev.target.parentNode;
-    const image = dad.parentNode.querySelector('img').src;
+    const image = dad.querySelector('img').src;
     const value = dad.parentNode.querySelector('span').innerText;
     const newItem = new Item(count);
 
@@ -121,11 +121,11 @@ export default function Itens() {
         return (
             <div className="shopContainer" key={index+1}>
               <div className="shopImg">
-                <img src={element} />
+                <img src={element} className='img'/>
               </div>
               <span>{valueItem.toLocaleString("pt-br",{style:"currency", currency: "BRL"})}</span>
               <div className='shopButtons'>
-                <a href="#" className='shopCompra'>Comprar</a>
+                <a href="/compra" className='shopCompra'>Comprar</a>
               </div>
               <button className="material-symbols-outlined add-cart" onClick={handleclick}>add_shopping_cart</button>
             </div>

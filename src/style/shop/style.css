@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+:root {
+  --height-header: 140px;
+}
+
 * {
   scroll-behavior: smooth;
 }
@@ -16,11 +20,15 @@
 }
 
 header {
+  position: sticky;
+  width: 100%;
   margin-top: 5px;
+  top: 0px;
   margin: auto;
   background-color: rgba(255, 255, 255, 0.41);
   color: rgb(0, 0, 0);
   text-shadow: 2px 1px 15px black;
+  z-index: 1;
 }
 
 .shopCarrinho {
@@ -45,6 +53,15 @@ header {
   position: absolute;
   bottom: 10px;
   right: 10px;
+  border: none;
+  background-color: transparent;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.add-cart:hover {
+  transform: translateY(-2px);
+  animation: .5s ease-in-out;
 }
 
 .shopCount-item {
@@ -130,7 +147,7 @@ main {
   justify-items: center;
   background-color: rgba(255, 255, 255, 0.41);
   margin-bottom: 40px;
-  padding-bottom: 20px;
+  padding: 20px 0;
 }
 
 #shopTop {
@@ -148,6 +165,10 @@ main {
   border-radius: 20px;
   margin-bottom: 8px;
   padding: 10px;
+}
+
+.shopContainer span {
+  font-size: 1.5em;
 }
 
 .shopImg {

@@ -9,10 +9,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   background-color: aqua;
+  padding: 10px;
 }
 
 .layoutCart {
+  position: relative;
   width: var(--width-layoutCart);
   height: 95%;
   padding: 20px;
@@ -22,8 +25,8 @@
 
 .full {
   background-color: teal;
-  width: calc(var(--width-layout) - var(--width-layoutCart));
-  height: 95%;
+  width: var(--width-layoutCart);
+  height: 10%;
 }
 
 .contador {
@@ -44,6 +47,17 @@
 
 .itemCart {
   display: flex;
+  margin: 5px 0;
+}
+
+.linkShop {
+  position: absolute;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  gap: 2px;
 }
 
 .item {

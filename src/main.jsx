@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import Home from './routes/Home.jsx'
 import Carrinho from './routes/Carrinho.jsx'
 import './index.css'
+import Compra from './components/compra/Compra.jsx'
 
 const routers = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const routers = createBrowserRouter([
   {
     path: '/carrinho',
     element: <Carrinho />
+  },
+  {
+    path: "/compra",
+    element: <Compra />
   }
 ])
 
