@@ -93,6 +93,23 @@ export default function Itens() {
         cart.addItem();
       }
     })();
+
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('.header');
+      const linkCart = document.querySelector('.linkCart');
+      const theme = document.querySelector('.theme');
+
+      if (window.scrollY > 50) { // Você pode ajustar o valor conforme necessário
+        header.classList.add('sticky');
+        linkCart.style.display = 'block';
+        theme.style.width = '200px';
+      } else {
+        header.classList.remove('sticky');
+        linkCart.style.display = 'none';
+        theme.style.width = '60px';
+      }
+    });
+
   })
 
   const handleclick = (ev) => {

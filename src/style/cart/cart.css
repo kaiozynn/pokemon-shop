@@ -19,7 +19,8 @@
   width: var(--width-layoutCart);
   height: 95%;
   padding: 20px;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   background-color: yellow;
 }
 

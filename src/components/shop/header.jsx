@@ -3,11 +3,13 @@ import { LinkCart, Navbar, Title} from './shop-components.jsx'
 
 export default function Header({itens}) {
   return (
-    <header id="shopTop">
+    <>
+    <header id="shopTop"> 
       <LinkCart itens={itens}/>
       <Title />
-      <Navbar />
     </header>
+    <Navbar />  
+    </>
   )
 }
 Header.propTypes = {

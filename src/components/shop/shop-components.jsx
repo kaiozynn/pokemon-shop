@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom"
 export function Navbar() {
   return (
     <>
-      <nav>
+      <nav className="header">
         <a href="#">Home</a>
         <a href="https://pokemonrevolution.net/download" target="_blank">Download</a>
         <a href="https://pokemonrevolution.net/forum/topic/190726-kazutora-shop/" target="_blank">Forum</a>
-        <input type="checkbox" name="tema" id="tema"></input>
+        <div className='theme'>
+          <a href="/carrinho" className='linkCart'>Carrinho</a>
+          <input type="checkbox" name="tema" id="tema"></input>
+        </div>
       </nav>
     </>
   )
