@@ -73,15 +73,13 @@ export function Container() {
     <>
       <div className="layoutCart">
         <a href="/" className="linkShop">
-          <i class="material-symbols-outlined">
-            arrow_back
-          </i>
-          Continuar comprando
+          <i class="material-symbols-outlined">arrow_back</i>
+          <span>Continuar comprando</span>
         </a>
         {cartItens.map((element, index) => {
           return (
             <div className="itemCart" key={index+1}>
-              <div>
+              <div className="imgCart">
                 <img src={element} />
               </div>
               <div className="item">
@@ -98,6 +96,7 @@ export function Container() {
       </div>
       <div className="full">
         <div id="priceAll">{price.toLocaleString('pt-br', {style: 'currency', currency: "BRL"})}</div>
+        <button>Finalizar compra</button>
       </div>
     </>
   )

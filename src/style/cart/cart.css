@@ -1,6 +1,11 @@
 :root {
   --width-layout: 95%;
   --width-layoutCart: 80%;
+  --border-item: 1px solid black;
+}
+
+body button {
+  cursor: pointer;
 }
 
 .cartBody {
@@ -10,7 +15,9 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: aqua;
+  background-image: url("https://i.postimg.cc/CLZ66FGz/cart-image.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 10px;
 }
 
@@ -21,22 +28,37 @@
   padding: 20px;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-color: yellow;
+  background-color: rgba(255, 255, 255, 0.679);
+  border-radius: 10px 10px 0 0;
 }
 
 .full {
-  background-color: teal;
+  background-color: lightgray;
   width: var(--width-layoutCart);
   height: 10%;
+  border-radius: 0 0 10px 10px;
 }
 
 .contador {
-  background-color: blueviolet;
+  background-color: lightgray;
+  border-radius: 10px;
+}
+
+.contador button {
+  border: none;
+  font-size: 1.3em;
+  border-radius: 5px;
+}
+
+.delete {
+  font-size: 2.2em;
+  background-color: lightgray;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 #quantItem {
   width: 100px;
-  background-color: violet;
   font-size: 20px;
   padding: 5px;
 }
@@ -46,25 +68,52 @@
   padding: 5px;
 }
 
-.itemCart {
-  display: flex;
-  margin: 5px 0;
-}
-
 .linkShop {
   position: absolute;
-  right: 25px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  right: 25px;
+  top: 3px;
+  color: black;
   text-decoration: none;
-  gap: 2px;
+  gap: 5px;
+  cursor: pointer;
 }
+
+.linkShop:hover span {
+  text-decoration: underline;
+} 
 
 .item {
   width: 100%;
   display:  flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 10px;
+}
+
+.valueTest {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.imgCart img {
+  border-radius: 5px;
+}
+
+.itemCart {
+  display: flex;
+  border-bottom: var(--border-item);
+  border-top: var(--border-item);
+  padding: 10px 0;
+}
+
+.itemCart:first-of-type {
+  margin-top: 8px;
+  border-top: 2px solid black;
+}
+
+.itemCart:last-of-type {
+  border-bottom: 2px solid black;
 }

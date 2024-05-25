@@ -15,7 +15,7 @@ export function DeleteButton({index, itemInDelete, onDelete}) {
 
   return (
     <>
-      <button className="delete" onClick={handleDelete}>delete</button>
+      <button className="delete material-symbols-outlined" onClick={handleDelete}>delete</button>
     </>
   )
 }
