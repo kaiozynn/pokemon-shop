@@ -21,10 +21,9 @@ export function Container() {
 
   const cont = contItem(item);
   const cartItens = Object.keys(cont);
-  const new_price = new AttPrice();
 
   const removeItem = (index) => {
-    new_price.removeItem(index, jsonItens, item, setPrice, setItem)
+    AttPrice.removeItem(index, jsonItens, item, setPrice, setItem)
   };
 
   const selectItem = (index) => {
@@ -41,7 +40,7 @@ export function Container() {
       
       if (!element.checked) {
         testNumber = countItensJson[uniqueItens[index].image];
-        newPrice = new_price.updatePrice(testNumber, testItem);
+        newPrice = AttPrice.updatePrice(testNumber, testItem);
       }
     });
     

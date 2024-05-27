@@ -1,7 +1,7 @@
 import { clearNumberCurrency, createUniqueArray, contItem } from "./cart-components";
 
 export class AttPrice {
-  updatePrice(quant, value) {
+  static updatePrice(quant, value) {
     const valueFullPrice = document.querySelector('#priceAll').innerText;
     const valueFormat = Number(clearNumberCurrency(value));
     let fullPrice = Number(clearNumberCurrency(valueFullPrice));
@@ -15,7 +15,7 @@ export class AttPrice {
     return fullPrice;
   }
 
-  deletePrice(arrayItens) {
+  static deletePrice(arrayItens) {
     let fullPrice = 0;
     for (let index = 0; index < arrayItens.length; index++) {
       fullPrice += Number(clearNumberCurrency(arrayItens[index].value));
@@ -23,7 +23,7 @@ export class AttPrice {
     return fullPrice;
   }
 
-  removeItem(index, jsonItens, item, setPrice, setItem) {
+  static removeItem(index, jsonItens, item, setPrice, setItem) {
     const newItens = [...item];
     const uniqueArray = createUniqueArray(newItens);
     const countDataStorage = contItem(jsonItens);
