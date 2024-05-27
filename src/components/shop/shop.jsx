@@ -1,52 +1,60 @@
 import { useEffect } from 'react';
 import Header from './header'
-import { limparNumeroMoeda } from '../cart/Cart';
+import { clearNumberCurrency } from '../cart/cart-components';
 
-export function AttFullPrice(ev) {
-  this.ev = ev;
-};
-AttFullPrice.prototype.initPrice = function() {
-  if(!localStorage.getItem('fullPrice')) localStorage.setItem('fullPrice', 0);
+export class AttFullPrice {
+  constructor(ev) {
+    this.ev = ev;
+  }
 
-};
-AttFullPrice.prototype.addPriceItem = function(price) {
-  const priceClean = Number(limparNumeroMoeda(price));
-  const getPriceStorage = Number(localStorage.getItem('fullPrice'));
-  
-  localStorage.setItem("fullPrice", JSON.stringify(priceClean+getPriceStorage));
-};
-AttFullPrice.prototype.upValue = function() {
-  const dad = this.ev.target.parentNode.parentNode;
-  const currentItem = limparNumeroMoeda(dad.querySelector('.valueTest').innerText);
-  const priceStorage = localStorage.getItem("fullPrice");
-  return Number(priceStorage) + Number(currentItem);
-};
-AttFullPrice.prototype.downValue = function() {
-  const dad = this.ev.target.parentNode.parentNode;
-  const currentItem = limparNumeroMoeda(dad.querySelector('.valueTest').innerText);
-  const priceStorage = localStorage.getItem("fullPrice");
-  return Number(priceStorage) - Number(currentItem);
+  initPrice() {
+    if(!localStorage.getItem('fullPrice')) localStorage.setItem('fullPrice', 0)
+  }
+
+  addPriceItem(price) {
+    const priceClean = Number(clearNumberCurrency(price));
+    const getPriceStorage = Number(localStorage.getItem('fullPrice'));
+    
+    localStorage.setItem("fullPrice", JSON.stringify(priceClean+getPriceStorage));
+  }
+
+  upValue() {
+    const dad = this.ev.target.parentNode.parentNode;
+    const currentItem = clearNumberCurrency(dad.querySelector('.valueTest').innerText);
+    const priceStorage = localStorage.getItem("fullPrice");
+    return Number(priceStorage) + Number(currentItem);
+  }
+
+  downValue() {
+    const dad = this.ev.target.parentNode.parentNode;
+    const currentItem = clearNumberCurrency(dad.querySelector('.valueTest').innerText);
+    const priceStorage = localStorage.getItem("fullPrice");
+    return Number(priceStorage) - Number(currentItem);
+  }
 }
 
+class Item {
+  constructor(count) {
+    this.count = count;
+  }
 
-function Item(count) {
-  this.count = count
+  addItem() {
+    const contador = document.querySelector('.shopCount-item')
+
+    if(this.count !== 0) {
+      contador.classList.remove('shopDisplayNone');
+      contador.classList.add('shopCount-item');
+      return contador.innerHTML = this.count;
+    }
+  }
+
+  createItem(count, item) {
+    return {
+      count,
+      item
+    }
+  }
 }
-Item.prototype.addItem = function() {
-  const contador = document.querySelector('.shopCount-item')
-
-  if(this.count !== 0) {
-    contador.classList.remove('shopDisplayNone');
-    contador.classList.add('shopCount-item');
-    return contador.innerHTML = this.count;
-  }
-};
-Item.prototype.createItem = function(count, item) {
-  return {
-    count,
-    item
-  }
-};
 
 export default function Itens() {
   const itens = [
@@ -83,7 +91,7 @@ export default function Itens() {
 
   let count = dataCart ? dataCart.count : 0;
   const item = dataCart ? dataCart.item : [];
-  const valueItem = 150;
+  const valueItem = 50;
 
   useEffect(() => {
     (function cont() {

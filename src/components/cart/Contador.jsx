@@ -5,7 +5,7 @@ export function Contador({valQuant, itemCart, setPrice}) {
   const [quant, setQuant] = useState(valQuant);
 
   useEffect(() => {
-    setQuant(valQuant)
+    setQuant(valQuant);
   }, [valQuant]);
 
   let count = JSON.parse(localStorage.getItem("cart")).count;

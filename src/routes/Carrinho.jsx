@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import "../style/cart/cart.css"
+import "../style/cart/cart.css";
 import { Container } from '../components/cart/Cart.jsx';
 
 function Carrinho() {

@@ -1,44 +1,19 @@
-import { useState } from "react";
-import { DeleteButton, Price } from "./cart-components";
+import { useEffect, useState } from "react";
+import { CheckeboxSelect, DeleteButton, Price, formatNumberInCurrency, contItem, createUniqueArray } from "./cart-components";
 import { Contador } from "./Contador";
-
-function deletePrice(arrayItens) {
-  let fullPrice = 0;
-  for (let index = 0; index < arrayItens.length; index++) {
-    fullPrice += Number(limparNumeroMoeda(arrayItens[index].value));
-  };
-  return fullPrice;
-}
-
-export function limparNumeroMoeda(numeroFormatado) {
-  return numeroFormatado.replace(/[^\d,-]/g, '').replace(',', '.');
-}
-
-function contItem(itemInCount) {
-  let cont = {}; // faz a contagem dos itens armazena em um objeto colocando o nome do elemento como chave do objeto e depois a quantidade como valor
-
-  itemInCount.map((element) => {
-    if(cont[element.image]) {
-      cont[element.image]++;
-    } else {
-      cont[element.image] = 1;
-    }
-  })
-
-  return cont;
-}
-
-function createUniqueArray(array) {
-  return array.filter((obj, index, self) =>
-    index === self.findIndex((o) => (
-        o.image === obj.image
-    ))
-  );
-}
+import { AttPrice } from "./AttPrice";
 
 export function Container() {
-  const priceStorage = Number(localStorage.getItem("fullPrice"))
-  .toLocaleString('pt-br', {style: 'currency', currency: "BRL"}) ?? 0;
+  useEffect(() => {
+    const allCheckbox = document.querySelectorAll(".selectItem");
+    const arrayCheckbox = Array.from(allCheckbox);
+
+    arrayCheckbox.map(element => {
+      element.checked = true;
+    })
+  }, [])
+
+  const priceStorage = formatNumberInCurrency(Number(localStorage.getItem("fullPrice"))) ?? 0;
   const jsonItens = JSON.parse(localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')).item : [];
 
   const [item, setItem] = useState(jsonItens);
@@ -46,39 +21,60 @@ export function Container() {
 
   const cont = contItem(item);
   const cartItens = Object.keys(cont);
+  const new_price = new AttPrice();
 
   const removeItem = (index) => {
-    const newItens = [...item];
-    const uniqueArray = createUniqueArray(newItens);
-    const countDataStorage = contItem(jsonItens);
-
-    const attItens = jsonItens.filter((element) => {
-      return element.image !== uniqueArray[index].image;
-    });
-
-    const saveItem = {
-      count: JSON.parse(localStorage.getItem('cart')).count - countDataStorage[uniqueArray[index].image],
-      item: attItens
-    };
-
-    const priceUpdateDelete = deletePrice(attItens);
-    setPrice(priceUpdateDelete);
-    localStorage.setItem("fullPrice", priceUpdateDelete);
-
-    localStorage.setItem("cart", JSON.stringify(saveItem));
-    setItem(attItens);
+    new_price.removeItem(index, jsonItens, item, setPrice, setItem)
   };
+
+  const selectItem = (index) => {
+    const copyItens = [...item];
+    const uniqueItens = createUniqueArray(copyItens);
+    const countItensJson = contItem(jsonItens);
+    const price = document.querySelector('#priceAll');
+    let newPrice;
+    const bodyCheked = Array.from(window.document.querySelectorAll(".selectItem"));
+
+    bodyCheked.map((element) => {
+      const testItem = element.parentNode.querySelector('.valueTest').innerText;
+      let testNumber = 0;
+      
+      if (!element.checked) {
+        testNumber = countItensJson[uniqueItens[index].image];
+        newPrice = new_price.updatePrice(testNumber, testItem);
+      }
+    });
+    
+    price.innerHTML = `Subtotal ${formatNumberInCurrency(newPrice)}`;
+  }
+
+  const handleSelectAll = () => {
+    const selectAll = document.querySelector("#selectAll");
+    const selectAllItem = Array.from(document.querySelectorAll(".selectItem"));
+    
+
+    if (selectAll.checked) {
+      selectAllItem.map((element) => {
+        element.checked = true;
+      });
+    } else {
+      selectAllItem.map(element => {
+        element.checked = false;
+      })
+    }
+  }
 
   return (
     <>
       <div className="layoutCart">
         <a href="/" className="linkShop">
-          <i class="material-symbols-outlined">arrow_back</i>
+          <i className="material-symbols-outlined">arrow_back</i>
           <span>Continuar comprando</span>
         </a>
         {cartItens.map((element, index) => {
           return (
             <div className="itemCart" key={index+1}>
+              <CheckeboxSelect index={index} onSelect={selectItem}/>
               <div className="imgCart">
                 <img src={element} />
               </div>
@@ -88,15 +84,20 @@ export function Container() {
                   image: element,
                   value: item[index].value
                 }} setPrice={setPrice} />
-                <DeleteButton index={index} itemInDelete={item} onDelete={removeItem}/>
+                <DeleteButton index={index} onDelete={removeItem}/>
               </div>
             </div>
           )
         })}
       </div>
       <div className="full">
-        <div id="priceAll">{price.toLocaleString('pt-br', {style: 'currency', currency: "BRL"})}</div>
-        <button>Finalizar compra</button>
+        <input type="checkbox" name="selectAll" id="selectAll" onClick={handleSelectAll}/>
+        <label htmlFor="selectAll">Selecionar tudo</label>
+        <div>
+          <span id="priceAll">Subtotal {formatNumberInCurrency(price)}</span>
+          <span>Frete R$ 0,00</span>
+          <button>Finalizar compra</button>
+        </div>
       </div>
     </>
   )

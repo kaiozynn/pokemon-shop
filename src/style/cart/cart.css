@@ -2,6 +2,7 @@
   --width-layout: 95%;
   --width-layoutCart: 80%;
   --border-item: 1px solid black;
+  --size-checkboxItem: 30px;
 }
 
 body button {
@@ -32,11 +33,24 @@ body button {
   border-radius: 10px 10px 0 0;
 }
 
+.selectItem {
+  width: var(--size-checkboxItem);
+  cursor: pointer;
+}
+
 .full {
   background-color: lightgray;
   width: var(--width-layoutCart);
   height: 10%;
   border-radius: 0 0 10px 10px;
+}
+
+.full div:first-of-type {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 25%;
+  float: right;
 }
 
 .contador {
@@ -104,8 +118,10 @@ body button {
 
 .itemCart {
   display: flex;
+  align-items: center;
   border-bottom: var(--border-item);
   border-top: var(--border-item);
+  gap: 10px;
   padding: 10px 0;
 }
 
