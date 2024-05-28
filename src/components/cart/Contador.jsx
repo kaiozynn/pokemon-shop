@@ -53,9 +53,9 @@ export function Contador({valQuant, itemCart, setPrice}) {
 
   return (
     <div className="contador">
-      <button onClick={handleUpValue}>+</button>
-      <span id="quantItem">{quant}</span>
       <button onClick={handleDownValue}>-</button>
+      <span id="quantItem">{quant}</span>
+      <button onClick={handleUpValue}>+</button>
     </div>
   );
 }

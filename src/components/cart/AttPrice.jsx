@@ -5,11 +5,9 @@ export class AttPrice {
     const valueFullPrice = document.querySelector('#priceAll').innerText;
     const valueFormat = Number(clearNumberCurrency(value));
     let fullPrice = Number(clearNumberCurrency(valueFullPrice));
-    let contador = 0;
 
-    while(contador < quant) {
+    for(let i = 0; i < quant; i++) {
       fullPrice -= valueFormat;
-      contador++;
     }
 
     return fullPrice;
