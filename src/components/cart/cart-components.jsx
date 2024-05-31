@@ -25,12 +25,21 @@ export function DeleteButton({index, onDelete}) {
 export function CheckeboxSelect({index, onSelect}) {
   const handleUpdate = (ev) => {
     if(!ev.target.checked) {
-      onSelect(index)
+      onSelect(index);
     };
   }
 
   return (
-    <input type="checkbox" name="selectItem" className="selectItem" onClick={handleUpdate}/>
+    <div className="checkbox">
+      <input type="checkbox" name="selectItem" className="selectItem" id={index} onClick={handleUpdate}/>
+      <label htmlFor={index} className="pokebola">
+        <div className="cima"></div>
+        <div className="bolinha_meio1"></div>
+        <div className="fita"></div>
+        <div className="bolinha_meio2"></div>
+        <div className="baixo"></div>
+      </label>
+    </div>
   )
 }
 

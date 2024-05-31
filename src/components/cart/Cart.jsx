@@ -35,7 +35,7 @@ export function Container() {
     const bodyCheked = Array.from(window.document.querySelectorAll(".selectItem"));
 
     bodyCheked.map((element) => {
-      const testItem = element.parentNode.querySelector('.valueTest').innerText;
+      const testItem = AttPrice.returnParentCheckbox(element);
       let testNumber = 0;
       
       if (!element.checked) {
@@ -73,7 +73,9 @@ export function Container() {
         {cartItens.map((element, index) => {
           return (
             <div className="itemCart" key={index+1}>
-              <CheckeboxSelect index={index} onSelect={selectItem}/>
+              <div>
+                <CheckeboxSelect index={index} onSelect={selectItem}/>
+              </div>
               <div className="imgCart">
                 <img src={element} />
               </div>

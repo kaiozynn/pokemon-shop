@@ -42,4 +42,8 @@ export class AttPrice {
     localStorage.setItem("cart", JSON.stringify(saveItem));
     setItem(attItens);
   }
+
+  static returnParentCheckbox(element) {
+    return element.parentNode.parentNode.parentNode.querySelector('.valueTest').innerText;
+  }
 }
