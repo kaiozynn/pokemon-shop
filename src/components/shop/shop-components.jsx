@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom"
 
 export function Navbar() {
+  const history = useNavigate();
+
+  const handleClickCart = () => {
+    history("/carrinho");
+  }
+
   return (
     <>
       <nav className="header">
@@ -9,7 +15,7 @@ export function Navbar() {
         <a href="https://pokemonrevolution.net/download" target="_blank">Download</a>
         <a href="https://pokemonrevolution.net/forum/topic/190726-kazutora-shop/" target="_blank">Forum</a>
         <div className='theme'>
-          <a href="/carrinho" className='linkCart'>Carrinho</a>
+          <a onClick={handleClickCart} className='linkCart'>Carrinho</a>
           <input type="checkbox" name="tema" id="tema"></input>
         </div>
       </nav>
