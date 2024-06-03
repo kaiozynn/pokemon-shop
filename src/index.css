@@ -5,10 +5,6 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
-.shopBody {
-  height: 100vh;
-}
-
 a, button {
   cursor: pointer;
 }

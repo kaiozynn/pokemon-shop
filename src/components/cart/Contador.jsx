@@ -12,8 +12,7 @@ export function Contador({valQuant, itemCart, setPrice}) {
   const item = JSON.parse(localStorage.getItem('cart')).item;
 
   const handleDownValue = (ev) => {
-    const attPrice = new AttFullPrice(ev);
-    const decreasePrice = attPrice.downValue();
+    const decreasePrice = AttFullPrice.downValue(ev);
 
     if(quant !== 1) {
       setQuant(quant-1);
@@ -34,8 +33,7 @@ export function Contador({valQuant, itemCart, setPrice}) {
   }
 
   const handleUpValue = (ev) => {
-    const attPrice = new AttFullPrice(ev);
-    const increasePrice = attPrice.upValue();
+    const increasePrice = AttFullPrice.upValue(ev);
 
     setQuant(quant+1);
     count++;
