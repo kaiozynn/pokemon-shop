@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 export function Price({value}) {
   return (
     <>

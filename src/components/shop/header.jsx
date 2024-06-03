@@ -1,5 +1,5 @@
 import propTypes from "prop-types"
-import { LinkCart, Navbar, Title} from './shop-components.jsx'
+import { LinkCart, Navbar, Title } from './shop-components.jsx'
 
 export default function Header({itens}) {
   return (

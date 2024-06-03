@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AttFullPrice } from "../shop/shop";
+import { AttFullPrice } from "../shop/AttFullPrice";
 
 export function Contador({valQuant, itemCart, setPrice}) {
   const [quant, setQuant] = useState(valQuant);

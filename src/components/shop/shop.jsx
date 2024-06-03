@@ -1,60 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './header'
-import { clearNumberCurrency } from '../cart/cart-components';
-
-export class AttFullPrice {
-  constructor(ev) {
-    this.ev = ev;
-  }
-
-  initPrice() {
-    if(!localStorage.getItem('fullPrice')) localStorage.setItem('fullPrice', 0)
-  }
-
-  addPriceItem(price) {
-    const priceClean = Number(clearNumberCurrency(price));
-    const getPriceStorage = Number(localStorage.getItem('fullPrice'));
-    
-    localStorage.setItem("fullPrice", JSON.stringify(priceClean+getPriceStorage));
-  }
-
-  upValue() {
-    const dad = this.ev.target.parentNode.parentNode;
-    const currentItem = clearNumberCurrency(dad.querySelector('.valueTest').innerText);
-    const priceStorage = localStorage.getItem("fullPrice");
-    return Number(priceStorage) + Number(currentItem);
-  }
-
-  downValue() {
-    const dad = this.ev.target.parentNode.parentNode;
-    const currentItem = clearNumberCurrency(dad.querySelector('.valueTest').innerText);
-    const priceStorage = localStorage.getItem("fullPrice");
-    return Number(priceStorage) - Number(currentItem);
-  }
-}
-
-class Item {
-  constructor(count) {
-    this.count = count;
-  }
-
-  addItem() {
-    const contador = document.querySelector('.shopCount-item')
-
-    if(this.count !== 0) {
-      contador.classList.remove('shopDisplayNone');
-      contador.classList.add('shopCount-item');
-      return contador.innerHTML = this.count;
-    }
-  }
-
-  createItem(count, item) {
-    return {
-      count,
-      item
-    }
-  }
-}
+import { db } from '../../../firebaseConfig';
+import { doc, getDoc } from "firebase/firestore";
+import { AttFullPrice } from './AttFullPrice';
+import { classItem } from './Item';
+import { formatNumberInCurrency } from '../cart/cart-components';
 
 export default function Itens() {
   const itens = [
@@ -84,21 +34,21 @@ export default function Itens() {
     'https://i.postimg.cc/NFSdqyJG/slugma-1.png',
     'https://i.postimg.cc/BZVY1ySW/torkoal-h.png',
     'https://i.postimg.cc/Prv6b4JC/volcarona-p.png'
-  ]
+  ];
 
-  const fullPrice = new AttFullPrice();
+  const [name, setName] = useState([]);
+  const [data, setData] = useState();
+
   const dataCart = JSON.parse(localStorage.getItem("cart"));
 
   let count = dataCart ? dataCart.count : 0;
   const item = dataCart ? dataCart.item : [];
-  const valueItem = 50;
 
   useEffect(() => {
     (function cont() {
-      fullPrice.initPrice();
+      AttFullPrice.initPrice();
       if (dataCart) {
-        const cart = new Item(dataCart.count);
-        cart.addItem();
+        classItem.addItem(dataCart.count);
       }
     })();
 
@@ -118,22 +68,37 @@ export default function Itens() {
       }
     });
 
-  })
+
+  const fetchData = async () => {
+    const docRef = doc(db, "imgs", "pokemons");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const names = Object.keys(data);
+      setName(names);
+      setData(data);
+    } else {
+      console.log("No such document!");
+    }
+  }
+
+    fetchData();
+  }, [])
 
   const handleclick = (ev) => {
     count++;
     const dad = ev.target.parentNode;
     const image = dad.querySelector('img').src;
-    const value = dad.parentNode.querySelector('span').innerText;
-    const newItem = new Item(count);
-
-    newItem.addItem();
+    const value = dad.querySelector('span').innerText;
+    console.log(image, value)
+    
+    classItem.addItem(count);
     item.push({image, value});
 
-    const cartItens = newItem.createItem(count, item);
+    const cartItens = classItem.createItem(count, item);
     const storage = JSON.stringify(cartItens);
 
-    fullPrice.addPriceItem(value);
+    AttFullPrice.addPriceItem(value);
     localStorage.setItem("cart", storage);
   }
 
@@ -142,13 +107,14 @@ export default function Itens() {
     <div className='shopBody'>
     <Header itens={item} count={count}/>
     <main>
-      {itens.map((element, index) => {
+      {name.map((element, index) => {
         return (
             <div className="shopContainer" key={index+1}>
+              <h2>{name[index]}</h2>
               <div className="shopImg">
-                <img src={element} className='img'/>
+                <img src={data[name[index]].src} className='img'/>
               </div>
-              <span>{valueItem.toLocaleString("pt-br",{style:"currency", currency: "BRL"})}</span>
+              <span>{formatNumberInCurrency(data[name[index]].value)}</span>
               <div className='shopButtons'>
                 <a href="/compra" className='shopCompra'>Comprar</a>
               </div>
